@@ -29,9 +29,10 @@ for (int i = 0; i < input.Count; i += 5)
     boards.Add(newBoard);
 }
 
+boards = boards.OrderBy(b => b.BingoIn).ToList();
 
 //-- Task 1
-Board? earliestWinningBoard = boards.OrderBy(b => b.BingoIn).FirstOrDefault();
+Board? earliestWinningBoard = boards.FirstOrDefault();
 if (earliestWinningBoard != null)
 {
     int lastNumber = Board.NumbersDrawn[earliestWinningBoard.BingoIn];
@@ -41,7 +42,7 @@ if (earliestWinningBoard != null)
 }
 
 //-- Task 2
-Board? lastWinningBoard = boards.OrderByDescending(b => b.BingoIn).FirstOrDefault();
+Board? lastWinningBoard = boards.LastOrDefault(b => b.Bingo);
 if (lastWinningBoard != null)
 {
     int lastNumber = Board.NumbersDrawn[lastWinningBoard.BingoIn];
@@ -50,8 +51,7 @@ if (lastWinningBoard != null)
     Console.WriteLine("Total: " + lastWinningBoard.GetUncheckedSum() * lastNumber);
 }
 
-
-
+// I didn't plan this out enough lol
 class Board
 {
     public static List<int> NumbersDrawn = new();
